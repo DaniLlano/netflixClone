@@ -12,6 +12,6 @@ mongoose.connect(process.env.MONGO_URL, {
 .then(() => console.log("DB Connection Successfull."))
 .catch((err) => console.log(err));
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log("Backend server is running.");
 });
