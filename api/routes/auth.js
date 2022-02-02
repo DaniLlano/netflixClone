@@ -21,7 +21,7 @@ router.post("/register", async (req, res) => {
 });
 
 // login
-router.post("login", async (req, res) => {
+router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({email: req.body.email});
         !user && res.status(401).json("Wrong password or username.");
@@ -31,11 +31,11 @@ router.post("login", async (req, res) => {
 
         originalPassword!== req.body.password && res.status(401).json("Wrong password or username.");
     
-        const accessToken = jwt.sign({id: user.id, isAdmin: user.isAdmin}, process.env.SECRET_KEY, {expiresIn: "5d"})
+        const accessToken = jwt.sign({id: user._id, isAdmin: user.isAdmin}, process.env.SECRET_KEY, {expiresIn: "5d"})
 
         const {password, ...info} = user._doc;
 
-        res.status(200).json({...user.info, accessToken});
+        res.status(200).json({...info, accessToken});
     
     } catch(err) {
         res.status(500).json(err)

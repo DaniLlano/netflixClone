@@ -18,6 +18,6 @@ app.use(express.json());
 
 app.use("/api/auth", authRoute);
 
-app.listen(8801, () => {
+app.listen(9000, () => {
     console.log("Backend server is running.");
 });
