@@ -22,6 +22,11 @@ router.post("/register", async (req, res) => {
 // login
 router.post("login", (req, res) => {
     try {
+        const user = User.findOne({ email: req.body.email });
+        !user && res.status(401).json("Wrong password or username.");
+
+        const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
+        const OriginalPassword = bytes.toString(CryptoJS.enc.Utf8);
 
     } catch(err) {
         res.status(500).json(err)
